@@ -1,0 +1,24 @@
+./
+|-AUTHORS                -Lists the authors of this project
+|-ChangeLog              -A dated log of changes, as they are made
+|-configure.ac           -The project's autoconf script
+|-COPYING                -The GNU Public License, V3
+|-INSTALL                -Generic GNU install instructions
+|-Makefile.am            -The project's automake script
+|-NEWS                   -A dated log of updates in narrative form
+|-README                 -Basic instructions on installing and using
+|-src/
+   |-error.c             -Error reporting functions
+   |-error.h
+   |-fuse_ops.c          -FUSE filesystem operations
+   |-fuse_ops.h
+   |-fusequota.c         -Entry point, command line option parsing
+   |-Makefile.am         -Automake script for files in src/
+   |-quota.c             -Functions to get and set quotas
+   |-quota.h
+   |-space.h             -Function to compute the size of a directory
+   |-space.c
+|-tests/
+   |-test-mount.pl       -Tests mounting/unmounting a filesystem
+   |-test-quota.pl       -Tests getting, setting, and unsetting quotas
+|-TODO                   -Informal notes on things that need to be done

@@ -3,6 +3,8 @@
 	* README: Updated to reflect new binary name, switched mount argument
 	order
 
+	* HACKING: Added documentation for how the project is organized
+
 	* tests/test-quota.pl: Added test to get/set/unset quotas. (Currently
 	it fails)
 

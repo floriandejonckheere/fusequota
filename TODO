@@ -1,25 +1,16 @@
 Urgent:
 
  - Make sure that the quota management test passes!!!
- - Test new changes
- - Unit tests for command line interface. It would be nice to be able to easily check if it works
- - Documentation for source organization
+ - Test quota enforcing
 
 In no particular order:
 
- - Static analysis
- - Add options for get_binding, get_exceeded
- - Document quota.c
- - Document fuse ops
- - Document mounting procedure
- - Document setting quotas
- - mount script
- - man pages for quota, fuse (which should be mount, and probably renamed)
+ - Add cli options for get_binding, get_exceeded
+ - Documentation on every static member and function
+ - fusermount script and associated manpages
+ - man pages for fusequota
  - caching
  - cweb documentation
- - complain to sf about svn not working
  - fstab entry documentation
- - unit tests might be nice
- - Licenses at the top of files?
- - documentation headers in every file, I'd really like to find an established
-   format
+ - soft/hard limits?
+ - notification?
