@@ -1,3 +1,11 @@
+2010-08-16  Augie  <augsod@ubuntu>
+
+	* README: Updated to reflect new binary name, switched mount argument
+	order
+
+	* tests/test-quota.pl: Added test to get/set/unset quotas. (Currently
+	it fails)
+
 2010-08-15  August Sodora III  <augsod@gmail.com>
 
 	* tests/test-mount.pl: Added test for mounting/unmounting

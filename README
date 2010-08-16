@@ -4,30 +4,25 @@ fusequota README
 fusequota is a FUSE filesystem that mirrors a directory, providing support
 for enforcing quotas on arbitrary files or directories.
 
-fusequota comes with two separate binaries:
-  - fuse, for mounting the filesystem
-  - quota, for managing quotas
-
-Both of these should probably be renamed at some point.
-
 Building and Installing
 -----------------------
 
 In order to build and install fusequota, run the following commands from the
 src directory:
 
-make
-
-Obviously, the fuse libraries are required. A nicer build system is forthcoming.
+$ autoreconf --install
+$ ./configure
+$ make
+# make install
 
 Mounting the Filesystem
 -----------------------
 
 The filesystem can be mounted with the following command:
 
-# ./fuse <rootdir> <mountpoint>
+# fusequota mount <mountpoint> <basedir>
 
-The rootdir is the directory that is being mirrored. The mountpoint is the
+The basedirdir is the directory that is being mirrored. The mountpoint is the
 directory that the quota filesystem layer is exposed through.
 
 Unmounting the filesystem can be accomplished with umount:
@@ -39,9 +34,9 @@ Managing Quotas
 
 Quotas can be managed with the quota command:
 
-# ./quota set <path> <size> [-u<B|K|M|G|T>]
-# ./quota get <path> [-u<B|K|M|G|T>]
-# ./quota unset <path>
+# fusequota set <path> <size> [-u<B|K|M|G|T>]
+# fusequota get <path> [-u<B|K|M|G|T>]
+# fusequota unset <path>
 
 The path is the file or directory whose quota is being get or set. The size
 should be a integer and the units can be specified in either bytes, kilobytes,
