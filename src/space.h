@@ -1,8 +1,23 @@
 /**
  * Project: fusequota
+ * Author: August Sodora III <augsod@gmail.com>
  * File: space.h
- * License: IBM Public License 1.0
+ * License: GPLv3
  *
+ * fusequota is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * fusequota is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with fusequota. If not, see <http://www.gnu.org/licenses/>.
+ *
+ * Description:
  * This file provides a means for computing the amount of space
  * used by a file or directory.
  */
@@ -23,6 +38,6 @@
  * Computes the amount of space on the filesystem taken up by
  * the file or directory at the given path.
  */
-unsigned long space(const char* path);
+unsigned long space (const char *path);
 
 #endif /* SPACE_H */

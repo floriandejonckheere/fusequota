@@ -1,0 +1,9 @@
+2010-08-15  August Sodora III  <augsod@gmail.com>
+
+	* tests/test-mount.pl: Added test for mounting/unmounting
+
+	* src/fusequota.c (main): Fixed command line options parsing bug
+
+	* src/*.c|h: Added Author field to header documentation and
+	used `indent` to help source style conform to the GNU standards.
+	Also included the GNU license in the header of each source file

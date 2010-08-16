@@ -1,0 +1,10 @@
+2010-08-15  August Sodora III  <augsod@gmail.com>
+
+Today I put the source for fusequota up on google code and began ensuring that
+the code meets the GNU Coding Standards. I wrote a test to test mounting and
+unmounting a quota-enabled filesystem and wrote the basic configuration for
+autoconf and automake.
+
+The current version should support the features it has set out to initially
+support. Much documentation needs to happen but the code should at least be
+in a testable state.
