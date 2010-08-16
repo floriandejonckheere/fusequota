@@ -100,12 +100,13 @@ int main(int argc, char* argv[])
       usage();
 
     char base[PATH_MAX];
-    realpath(argv[2], base);
+    if(realpath(argv[2], base) == NULL)
+      error("main_realpath");
 
-    int i = 2;
+    int i = 1;
     for(; i < argc; i++)
-      argv[i] = argv[i + 1];
-    argc--;
+      argv[i] = argv[i + 2];
+    argc -= 2;
 
     int ret = fuse_main(argc, argv, &fuse_ops, base);
 
