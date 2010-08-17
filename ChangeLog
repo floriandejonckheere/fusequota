@@ -1,12 +1,25 @@
 2010-08-16  Augie  <augsod@ubuntu>
 
 	* README: Updated to reflect new binary name, switched mount argument
-	order
+	order, added documentation for get-binding and exceeded, and added
+	descriptive documentation at the bottom
 
 	* HACKING: Added documentation for how the project is organized
 
 	* tests/test-quota.pl: Added test to get/set/unset quotas. (Currently
 	it fails)
+
+	* src/fusequota.c (main): Fixed bug where the char* holding the base
+	directory out go out of scope before the FUSE operations could use it
+	* src/fusequota.c (main, usage): Added two new command line options, 
+	get-binding and exceeded. Also swapped the order of the arguments
+	to mount
+
+	* src/fuse_ops.h: Added a global char* to hold the base directory
+
+	* src/quota.c (quota_get): ENODATA on lgetxattr is now reported as 0
+	* src/quota.c (quota_get_binding): Replaced usages of lgetxattr with
+	calls to quota_get instead
 
 2010-08-15  August Sodora III  <augsod@gmail.com>
 

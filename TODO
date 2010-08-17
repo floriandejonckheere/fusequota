@@ -1,11 +1,10 @@
 Urgent:
 
- - Make sure that the quota management test passes!!!
  - Test quota enforcing
 
 In no particular order:
 
- - Add cli options for get_binding, get_exceeded
+ - Are access controls correct? Right now only root can do anything...
  - Documentation on every static member and function
  - fusermount script and associated manpages
  - man pages for fusequota

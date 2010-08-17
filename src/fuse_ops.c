@@ -324,5 +324,5 @@ fuse_access (const char *path, int mode)
 void *
 fuse_init (struct fuse_conn_info *conn)
 {
-  return fuse_get_context ()->private_data;
+  return (fuse_get_context())->private_data;
 }

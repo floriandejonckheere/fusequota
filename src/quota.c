@@ -112,7 +112,10 @@ quota_get (const char *path, enum units unit)
   ssize_t len = lgetxattr (path, "user.quota", value, 256);
 
   if (len < 0)
-    error ("quota_get_lgetxattr");
+    if(errno != ENODATA)
+      error ("quota_get_lgetxattr");
+    else
+      return 0;
   else
     value[len] = '\0';
 
@@ -139,18 +142,7 @@ quota_get_binding (const char *path, enum units unit, char *binding_quota)
   while (strcmp ((char *) fuse_get_context ()->private_data, current_path) !=
 	 0)
     {
-      char value[256];
-      ssize_t vsize = lgetxattr (current_path, "user.quota", value, 256);
-
-      unsigned long current_quota = 0;
-
-      if (vsize > 0)
-	{
-	  value[vsize] = '\0';
-	  current_quota = (unsigned long) atol (value);
-	}
-      else
-	perror ("");
+      unsigned long current_quota = quota_get(current_path, BYTES);
 
       if ((min_so_far == 0 && current_quota != 0)
 	  || (current_quota < min_so_far))
@@ -172,18 +164,7 @@ quota_get_binding (const char *path, enum units unit, char *binding_quota)
     }
 
   /* For the root path */
-  char value[256];
-  ssize_t vsize = lgetxattr (current_path, "user.quota", value, 256);
-
-  unsigned long current_quota = 0;
-
-  if (vsize > 0)
-    {
-      value[vsize] = '\0';
-      current_quota = (unsigned long) atol (value);
-    }
-  else
-    perror ("");
+  unsigned long current_quota = quota_get(current_path, BYTES);
 
   if ((min_so_far == 0 && current_quota != 0) || (current_quota < min_so_far))
     {

@@ -67,17 +67,13 @@ usage ()
 {
   printf ("fusequota set <path> <size> [-u<B|K|M|G|T>]\n");
   printf ("fusequota get <path> [-u<B|K|M|G|T>]\n");
+  printf ("fusequota get-binding <path> [-u<B|K|M|G|T>]\n");
+  printf ("fusequota exceeded <path>\n");
   printf ("fusequota unset <path>\n");
 
-  printf ("fusequota mount <mountpoint> <basedir>\n");
+  printf ("fusequota mount <basedir> <mountpoint>\n");
 
   exit (0);
-}
-
-void
-set ()
-{
-
 }
 
 int
@@ -114,6 +110,22 @@ main (int argc, char *argv[])
 
       printf ("%Lf\n", size);
     }
+  else if (strcmp (command, "get-binding") == 0)
+    {
+      int c = getopt (argc, argv, "u:");
+      enum units unit = (c < 0) ? BYTES : char_to_units(optarg[0]);
+
+      char binding_path[PATH_MAX];
+      long double size = quota_get_binding (fpath, unit, binding_path);
+
+      printf("%Lf on %s\n", size, binding_path);
+    }
+  else if (strcmp (command, "exceeded") == 0)
+    {
+      if(quota_exceeded (path) == 0)
+        printf("NOT ");
+      printf("EXCEEDED\n");
+    }
   else if (strcmp (command, "unset") == 0)
     quota_unset (fpath);
   else if (strcmp (command, "mount") == 0)
@@ -121,7 +133,6 @@ main (int argc, char *argv[])
       if (argc < 4)
 	usage ();
 
-      char base[PATH_MAX];
       if (realpath (argv[2], base) == NULL)
 	error ("main_realpath");
 

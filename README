@@ -20,7 +20,7 @@ Mounting the Filesystem
 
 The filesystem can be mounted with the following command:
 
-# fusequota mount <mountpoint> <basedir>
+# fusequota mount <basedir> <mountpoint>
 
 The basedirdir is the directory that is being mirrored. The mountpoint is the
 directory that the quota filesystem layer is exposed through.
@@ -36,8 +36,43 @@ Quotas can be managed with the quota command:
 
 # fusequota set <path> <size> [-u<B|K|M|G|T>]
 # fusequota get <path> [-u<B|K|M|G|T>]
+# fusequota get-binding <path> [-u<B|K|M|G|T>]
+# fusequota exceeded <path>
 # fusequota unset <path>
 
-The path is the file or directory whose quota is being get or set. The size
-should be a integer and the units can be specified in either bytes, kilobytes,
-megabytes, gigabytes, and terabytes.
+The path is the file or directory whose quota is being get or set.
+
+The size should be a integer and the units can be specified in either bytes,
+kilobytes, megabytes, gigabytes, and terabytes.
+
+Quotas are stored in the extended attribute "user.quota":
+  - If this attribute does not exist on a file or directory, a quota will not
+  be enforced for this file or directory and the get command will return zero
+  - A quota can be unset either by removing the attribute (as the unset
+  command does) or by setting the quota to zero
+  - When a quota is set, it's value is a 256-byte string representing the size
+  of the quota in bytes.
+
+Quotas can also be inherited. When querying a file or directory for its quota
+using get-binding, the quotas of each directory above and including the entry
+in question are searched for the minimum value. This value is what the
+filesystem uses to enforce quotas.
+
+Suppose you have a directory in a filesystem with user_xattr enabled on a
+system with the proper FUSE libraries installed at path /xattr. Then, suppose
+you call:
+
+    # fusequota mount /xattr /quota
+
+to mount /xattr on /quota. All writes to anything in /quota will be checked
+to make sure it does not violate the quota values stored in the user.quota
+attributes.
+
+To illustrate the inheritance, consider setting a quota on /quota of 1G. Now
+consider two subdirectories of /quota, /quota/larger and /quota/smaller that
+have a larger and smaller quota than their parent (say 500M and 1.5G)
+respectively. Any writes directly in /quota will not be able to proceed if
+/quota is larger than 1G. Any writes in /quota/smaller will not be able to
+cause /quota/smaller to exceed 500M, but writes to /quota/larger will be
+capped at 1G, because honoring its 1.5G quota would prevent the quota on
+/quota from being honored as well.
